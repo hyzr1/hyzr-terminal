@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const eslintConfig = [
-  { ignores: ["upload/**", "skills/**", "qa-shots/**", "node_modules/**", ".next/**", "tool-results/**"] },
+  { ignores: ["upload/**", "skills/**", "qa-shots/**", "node_modules/**", ".next/**", ".open-next/**", "dist/**", "tool-results/**"] },
   ...nextCoreWebVitals,
   ...nextTypescript, {
     rules: {
@@ -47,7 +47,7 @@ const eslintConfig = [
     "no-useless-escape": "off",
   },
 }, {
-  ignores: ["node_modules/**", ".next/**", "out/**", "build/**", "next-env.d.ts", "examples/**", "skills"]
+  ignores: ["node_modules/**", ".next/**", ".open-next/**", "dist/**", "out/**", "build/**", "next-env.d.ts", "examples/**", "skills"]
 }];
 
 export default eslintConfig;
