@@ -1,0 +1,463 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Hyzr design tokens (extracted verbatim from the snapshot's <html> style)
+--------------------------------------------------------------------------- */
+:root {
+  --scrollbar-gutter: 10px;
+  --font-ibm-plex-sans: "IBM Plex Sans";
+  --primary-color: 178 143 255;
+  --primary-hue: 262;
+  --primary-color-hover: 199 173 255;
+  --accent-pink: 255 158 229;
+  --accent-sky: 143 216 255;
+  --background-secondary: 15 16 18;
+  --background-tertiary: 22 24 27;
+  --primary-stroke: 42 45 49;
+  --secondary-stroke: 62 66 71;
+  --border-subtle: 34 36 40;
+  --text-primary: 252 252 252;
+  --text-secondary: 200 201 209;
+  --text-tertiary: 119 122 140;
+  --translation-text-color: 242 195 102;
+  --increase: 47 227 172;
+  --decrease: 236 57 122;
+  --increase-hover: 91 231 189;
+  --decrease-hover: 248 100 154;
+  --chart-up: 47 227 172;
+  --chart-down: 236 57 122;
+  --primary-green: 18 175 128;
+  --primary-yellow: 220 193 60;
+  --primary-orange: 226 124 77;
+  --primary-orange-hover: 238 146 103;
+  --primary-red: 242 84 97;
+  --primary-light-blue: 82 197 255;
+  --background: #090a0c;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-backgroundSecondary: rgb(var(--background-secondary));
+  --color-backgroundTertiary: rgb(var(--background-tertiary));
+  --color-primaryStroke: rgb(var(--primary-stroke));
+  --color-secondaryStroke: rgb(var(--secondary-stroke));
+  --color-borderSubtle: rgb(var(--border-subtle));
+  --color-textPrimary: rgb(var(--text-primary));
+  --color-textSecondary: rgb(var(--text-secondary));
+  --color-textTertiary: rgb(var(--text-tertiary));
+  --color-primaryBlue: rgb(var(--primary-color));
+  --color-primaryBlueHover: rgb(var(--primary-color-hover));
+  --color-accentPink: rgb(var(--accent-pink));
+  --color-accentSky: rgb(var(--accent-sky));
+  --color-primaryGreen: rgb(var(--primary-green));
+  --color-primaryYellow: rgb(var(--primary-yellow));
+  --color-primaryOrange: rgb(var(--primary-orange));
+  --color-primaryOrangeHover: rgb(var(--primary-orange-hover));
+  --color-primaryRed: rgb(var(--primary-red));
+  --color-primaryLightBlue: rgb(var(--primary-light-blue));
+  --color-increase: rgb(var(--increase));
+  --color-decrease: rgb(var(--decrease));
+  --color-increaseHover: rgb(var(--increase-hover));
+  --color-decreaseHover: rgb(var(--decrease-hover));
+  --color-chartUp: rgb(var(--chart-up));
+  --color-chartDown: rgb(var(--chart-down));
+  --color-translation: rgb(var(--translation-text-color));
+
+  /* platform specific colors */
+  --color-pump: #53d38e;
+  --color-hyzrCommunity: #8f9bf2;
+  --color-hyzrCommunityHover: #a7b1f7;
+  --color-protocolFeats: #3fcf8e;
+  --color-hoverPrimary: rgb(var(--primary-stroke) / 0.4);
+
+  --font-sans: var(--font-ibm-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-GeistMono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+
+/* -------------------------------------------------------------------------
+   Custom utilities used by the Hyzr UI
+------------------------------------------------------------------------- */
+@utility h-screen-safe {
+  height: 100dvh;
+  height: 100svh;
+}
+
+@utility scroll-gutter-stable {
+  scrollbar-gutter: stable;
+}
+
+@utility pr-gutter {
+  padding-right: var(--scrollbar-gutter);
+}
+
+@utility duration-fast {
+  transition-duration: 100ms;
+}
+
+/* -------------------------------------------------------------------------
+   Base
+------------------------------------------------------------------------- */
+html {
+  scrollbar-gutter: stable;
+}
+
+html,
+body {
+  background: var(--background);
+  color: rgb(var(--text-primary));
+  font-family: var(--font-ibm-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 420px at 52% -180px, rgb(210 216 222 / 0.10), transparent 68%),
+    linear-gradient(115deg, transparent 0 48%, rgb(255 255 255 / 0.012) 50%, transparent 52%);
+  z-index: 0;
+}
+
+.platform-app-shell { position: relative; z-index: 1; }
+
+.hyzr-logo-image { display: inline-flex; }
+.hyzr-logo-image img { width: 100%; height: 100%; object-fit: contain; }
+.hyzr-wordmark { font-size: 22px; line-height: 1; font-weight: 800; letter-spacing: -0.055em; color: #f1f3f5; }
+
+.steel-button {
+  background: linear-gradient(145deg, #f0f2f4 0%, #9ca2a9 45%, #d9dde1 70%, #7d838a 100%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .75), 0 5px 18px rgb(0 0 0 / .35);
+  color: #101114;
+}
+
+/* HYZR identity + cosmetics */
+.hyzr-profile-banner { position: relative; display: flex; min-height: 104px; flex-shrink: 0; align-items: center; overflow: hidden; border-bottom: 1px solid rgb(255 255 255 / .08); padding: 14px 24px; }
+.banner-forged { background: linear-gradient(115deg,#101317 0%,#252a30 45%,#0a0c0e 100%); }
+.banner-graphite { background: radial-gradient(circle at 70% 0%,#3d444d 0%,#15181c 35%,#08090b 78%); }
+.banner-aurora { background: linear-gradient(125deg,#111519 0%,#183d3a 43%,#302b47 72%,#0a0b0d 100%); }
+.banner-carbon { background-color:#101215; background-image:linear-gradient(45deg,rgba(255,255,255,.025) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.025) 75%),linear-gradient(45deg,rgba(255,255,255,.025) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.025) 75%); background-size:14px 14px; background-position:0 0,7px 7px; }
+.hyzr-banner-sheen { position:absolute; inset:-40% 20% -40% 45%; transform:skewX(-18deg); background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent); animation:hyzr-sheen 7s ease-in-out infinite; }
+@keyframes hyzr-sheen { 0%,65%{transform:translateX(-70%) skewX(-18deg)} 100%{transform:translateX(80%) skewX(-18deg)} }
+.hyzr-profile-avatar { display:flex; flex-shrink:0; align-items:center; justify-content:center; border-radius:999px; border:2px solid #8b949e; color:#f5f7f9; background:radial-gradient(circle at 35% 25%,#4d555e,#15181c 56%,#060708); box-shadow:0 0 0 3px #0a0c0e,0 0 28px rgba(190,198,206,.16); }
+.hyzr-profile-badge { display:inline-flex; align-items:center; gap:4px; border:1px solid rgba(255,255,255,.08); border-radius:5px; background:rgba(0,0,0,.24); padding:3px 7px; font-size:9px; color:#b7bec6; }
+.name-effect-steel { color:#edf1f4; text-shadow:0 1px 0 #606872,0 0 16px rgba(222,229,235,.25); }
+.name-effect-pulse { color:#aef8e2; text-shadow:0 0 8px rgba(63,236,187,.8); animation:hyzr-pulse 1.8s ease-in-out infinite; }
+.name-effect-prism { color:transparent; background:linear-gradient(90deg,#8ee7ff,#fff,#c7a7ff,#8ee7ff); background-size:220% auto; -webkit-background-clip:text; background-clip:text; animation:hyzr-prism 3s linear infinite; }
+.name-effect-ember { color:#ffd2ad; text-shadow:0 0 8px #ff6f32,0 0 18px rgba(255,65,35,.5); }
+@keyframes hyzr-pulse { 50%{filter:brightness(1.5)} }
+@keyframes hyzr-prism { to{background-position:220% center} }
+.hyzr-secondary-button { display:flex; height:36px; align-items:center; justify-content:center; gap:7px; border:1px solid rgba(255,255,255,.1); border-radius:8px; background:rgba(255,255,255,.04); padding:0 13px; font-size:11px; font-weight:600; color:#c8cdd2; }
+.hyzr-secondary-button:hover { background:rgba(255,255,255,.08); }
+.hyzr-dialog-layer { position:fixed; inset:0; z-index:150; display:flex; align-items:center; justify-content:center; padding:16px; }
+.hyzr-customizer { position:relative; z-index:1; display:flex; max-height:min(760px,calc(100vh - 32px)); width:min(820px,100%); flex-direction:column; overflow:hidden; border:1px solid rgba(255,255,255,.1); border-radius:16px; background:#0f1215; box-shadow:0 32px 90px #000; }
+.hyzr-field-label { display:flex; flex-direction:column; gap:6px; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:#7f8994; }
+.hyzr-field { height:40px; width:100%; border:1px solid rgba(255,255,255,.08); border-radius:8px; background:rgba(255,255,255,.035); padding:0 12px; font-size:13px; font-weight:500; text-transform:none; letter-spacing:0; color:#f5f7f9; outline:none; }
+.hyzr-field:focus { border-color:#8c969f; box-shadow:0 0 0 3px rgba(160,170,180,.1); }
+.hyzr-cosmetic-tile { display:flex; height:66px; flex-direction:column; align-items:center; justify-content:center; gap:5px; border:1px solid rgba(255,255,255,.07); border-radius:9px; background:rgba(255,255,255,.025); font-size:9px; text-transform:capitalize; color:#929ca7; }
+.hyzr-cosmetic-tile.selected,.hyzr-banner-swatch.selected,.hyzr-badge-choice.selected { border-color:#aeb7c0; background:rgba(194,203,212,.1); color:#fff; box-shadow:inset 0 0 0 1px rgba(255,255,255,.08); }
+.hyzr-banner-swatch { height:54px; overflow:hidden; border:1px solid rgba(255,255,255,.07); border-radius:8px; font-size:9px; text-transform:capitalize; color:#cbd0d5; }
+.hyzr-badge-choice { border:1px solid rgba(255,255,255,.07); border-radius:999px; background:rgba(255,255,255,.025); padding:6px 10px; font-size:10px; color:#8e98a3; }
+.hyzr-share-dialog { position:relative; z-index:1; width:min(640px,100%); }
+.hyzr-pnl-card { min-height:360px; border:1px solid rgba(255,255,255,.13); border-radius:16px; padding:28px; box-shadow:0 30px 80px #000; }
+
+@media (max-width:640px){ .hyzr-profile-banner{min-height:84px;padding:10px 12px}.hyzr-banner-sheen{display:none}.hyzr-pnl-card{min-height:330px;padding:20px} }
+.steel-button:hover { filter: brightness(1.08); }
+
+* {
+  border-color: rgb(var(--border-subtle));
+}
+
+button {
+  cursor: pointer;
+}
+
+input::placeholder {
+  color: rgb(var(--text-tertiary));
+}
+
+/* Hide scrollbars in horizontally scrolling strips (like hyzr) */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Apple-Dock live pulse (footer GLOBAL dot) — only applied while genuinely live */
+@keyframes hyzr-dock-pulse {
+  0% { box-shadow: 0 0 0 0 rgb(var(--increase) / 0.55); }
+  70% { box-shadow: 0 0 0 6px rgb(var(--increase) / 0); }
+  100% { box-shadow: 0 0 0 0 rgb(var(--increase) / 0); }
+}
+.dock-live-dot {
+  animation: hyzr-dock-pulse 2s ease-out infinite;
+}
+
+/* fx15 note: the fx14 Dynamic-Island collapse/expand CSS (island-group /
+   isl-item / isl-sub cascade) was removed with that interaction — the
+   footer is now always expanded. The live-dot pulse below is still used. */
+
+/* Dark theme scrollbars (matching the platform chrome) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--secondary-stroke)) transparent;
+}
+::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--secondary-stroke));
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--primary-stroke));
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* -------------------------------------------------------------------------
+   Floating dropdown panels (same look as the original Radix popovers)
+------------------------------------------------------------------------- */
+.dd-panel {
+  background: rgb(var(--background-tertiary));
+  border: 1px solid rgb(255 255 255 / 0.07);
+  border-radius: 12px;
+  box-shadow:
+    0 24px 56px -12px rgb(0 0 0 / 0.72),
+    0 4px 16px rgb(0 0 0 / 0.4);
+  animation: ddInBottom 130ms cubic-bezier(0.2, 0.9, 0.3, 1) both;
+}
+
+.dd-panel.dd-top {
+  animation-name: ddInTop;
+}
+
+@keyframes ddInBottom {
+  from {
+    opacity: 0;
+    transform: translateY(-5px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes ddInTop {
+  from {
+    opacity: 0;
+    transform: translateY(5px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* modal backdrop + panel */
+.hyzr-modal-backdrop {
+  background: rgb(0 0 0 / 0.62);
+  animation: fadeIn 150ms ease-out both;
+}
+.hyzr-modal-panel {
+  animation: modalIn 160ms cubic-bezier(0.2, 0.9, 0.3, 1) both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes spinOnce {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin-once {
+  animation: spinOnce 450ms cubic-bezier(0.3, 0.6, 0.3, 1);
+}
+
+/* -------------------------------------------------------------------------
+   Live data feedback (cell flashes + new-pair entrance)
+------------------------------------------------------------------------- */
+@keyframes flashUpKf {
+  0% {
+    background-color: rgb(47 227 172 / 0.26);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+@keyframes flashDownKf {
+  0% {
+    background-color: rgb(242 53 90 / 0.22);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+.flash-up {
+  animation: flashUpKf 700ms ease-out;
+}
+.flash-down {
+  animation: flashDownKf 700ms ease-out;
+}
+
+@keyframes tokenEnterKf {
+  0% {
+    opacity: 0.25;
+    transform: translateY(-7px);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.token-enter {
+  animation:
+    tokenEnterKf 480ms cubic-bezier(0.2, 0.9, 0.3, 1) both,
+    flashUpKf 1400ms ease-out;
+}
+
+/* ---------------- perps ticker marquee (Hyzr `animate-ticker`) ---------------- */
+@keyframes tickerMarqueeKf {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-ticker {
+  animation: tickerMarqueeKf 80s linear infinite;
+}
+.ticker-scroll-container:hover .animate-ticker {
+  animation-play-state: paused;
+}
+
+/* range inputs on the dark perps theme */
+input[type="range"].hl-range {
+  appearance: none;
+  height: 2px;
+  border-radius: 999px;
+  background: rgb(var(--primary-stroke));
+}
+input[type="range"].hl-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: rgb(var(--primary-color));
+  cursor: pointer;
+}
+
+/* mobile drawer slide-in (Hyzr app hamburger menu) */
+@keyframes hyzr-drawer-in {
+  from { transform: translateX(24px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+/* tri-tone brand gradient (light purple -> pink -> sky) for primary CTAs */
+.hyzr-accent-grad {
+  background: linear-gradient(
+    93deg,
+    rgb(var(--primary-color)) 0%,
+    rgb(var(--accent-pink)) 52%,
+    rgb(var(--accent-sky)) 100%
+  );
+}
+.hyzr-accent-grad:hover {
+  filter: brightness(1.08);
+}
+
+/* -------------------------------------------------------------------------
+   fx18 — Trade Lab Apple-polish layer
+   spring easing token, frosted-glass surfaces, entrance animations, and a
+   scoped press-scale micro-interaction (terminal only — the global dock and
+   nav keep fx15's transform-free hover language).
+------------------------------------------------------------------------- */
+:root {
+  --spring: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* frosted-glass surface for every terminal overlay (selector, settings,
+   chart dropdowns, grouping menu, mobile sheet + tab bar) */
+.glass-pop {
+  background: rgba(20, 22, 26, 0.78);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  backdrop-filter: blur(24px) saturate(160%);
+}
+.glass-pop-strong {
+  background: rgba(18, 20, 24, 0.92);
+  -webkit-backdrop-filter: blur(28px) saturate(170%);
+  backdrop-filter: blur(28px) saturate(170%);
+}
+
+@keyframes fx18-pop-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.pop-in { animation: fx18-pop-in 0.34s var(--spring) both; }
+
+@keyframes fx18-fade-in { from { opacity: 0; } to { opacity: 1; } }
+.fade-in { animation: fx18-fade-in 0.28s ease both; }
+
+@keyframes fx18-sheet-up {
+  from { transform: translateY(104%); }
+  to { transform: translateY(0); }
+}
+.sheet-up { animation: fx18-sheet-up 0.52s var(--spring) both; }
+
+/* fx19 — Time & Sales print flash: keyed rows re-mount on arrival, so the
+   newest print (and only it) animates in */
+@keyframes fx19-row-in {
+  from { background-color: rgba(178, 143, 255, 0.30); }
+  to { background-color: transparent; }
+}
+.row-in { animation: fx19-row-in 0.6s ease-out both; }
+
+/* fx19 — DOM ladder place-flash (row pulses once after click-to-trade) */
+@keyframes fx19-ladder-flash {
+  0% { background-color: rgba(178, 143, 255, 0.35); }
+  100% { background-color: transparent; }
+}
+.ladder-flash { animation: fx19-ladder-flash 0.55s ease-out both; }
+
+
+/* press-scale — scoped to the Trade Lab root so the floating footer and
+   top nav are untouched. Uses `transform` only on :active; base buttons get
+   a matching transform transition (colors keep their own via the longer
+   property list). */
+.perps-root button:not([data-nopress]) {
+  transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform;
+  transition-duration: 160ms;
+  transition-timing-function: var(--spring);
+}
+.perps-root button:not([data-nopress]):active {
+  transform: scale(0.97);
+}
